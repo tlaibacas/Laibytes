@@ -5,6 +5,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
 const ora = require("ora");
+const execa = require("execa");
 
 program
   .version("1.0.0")
@@ -57,16 +58,17 @@ program
         const installSpinner = ora(
           chalk.yellow("Installing dependencies...")
         ).start();
-        shell.cd(projectPath);
-        shell.exec("npm install", { silent: true }, (code) => {
-          if (code === 0) {
-            installSpinner.succeed(
-              chalk.green("Dependencies installed successfully!")
-            );
-          } else {
-            installSpinner.fail(chalk.red("Error installing dependencies!"));
-          }
-        });
+
+        try {
+          await execa("npm", ["install"], { cwd: projectPath });
+
+          installSpinner.succeed(
+            chalk.green("Dependencies installed successfully!")
+          );
+        } catch (error) {
+          installSpinner.fail(chalk.red("Error installing dependencies!"));
+          console.error(error);
+        }
       }
     } catch (error) {
       console.error(chalk.red(`❌ Error: ${error.message}`));
