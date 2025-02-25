@@ -10,7 +10,7 @@ const execa = require("execa");
 program
   .version("1.0.0")
   .description(
-    chalk.blue.bold("Laibytes CLI - Official tool for creating web projects")
+    chalk.bold.blue("Laibytes CLI - Official tool for creating web projects")
   );
 
 program
