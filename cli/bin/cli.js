@@ -23,9 +23,13 @@ program
         name: "projectType",
         message: "Select the project type:",
         choices: [
-          { name: "Static Site", value: "static" },
-          { name: "Blog", value: "blog" },
-          { name: "E-commerce", value: "ecommerce" },
+          { name: "🏢 Institutional Site", value: "institucional" },
+          { name: "🔄 Dynamic Site", value: "dinamico" },
+          { name: "🛒 E-commerce", value: "loja-virtual" },
+          { name: "📄 One-Page Site", value: "one-page" },
+          { name: "🌐 Portal", value: "portal" },
+          { name: "🔥 Hotsite", value: "hotsite" },
+          { name: "📱 Landing Page", value: "landing-page" },
         ],
       });
 
