@@ -8,7 +8,7 @@ const ora = require("ora");
 const execa = require("execa");
 
 program
-  .version("1.0.0")
+  .version("1.0.5")
   .description(
     chalk.bold.blue("Laibytes CLI - Official tool for creating web projects")
   );
