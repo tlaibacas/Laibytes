@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import path from "path";
 import chalk from "chalk";
 import ora from "ora";
-import execa from "execa";
+import { execa } from "execa";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
