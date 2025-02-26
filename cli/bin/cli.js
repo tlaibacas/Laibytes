@@ -1,11 +1,15 @@
 #!/usr/bin/env node
-const { program } = require("commander");
-const inquirer = require("inquirer");
-const fs = require("fs-extra");
-const path = require("path");
-const chalk = require("chalk");
-const ora = require("ora");
-const execa = require("execa");
+import { program } from "commander";
+import inquirer from "inquirer";
+import fs from "fs-extra";
+import path from "path";
+import chalk from "chalk";
+import ora from "ora";
+import execa from "execa";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 program
   .version("1.0.5")
