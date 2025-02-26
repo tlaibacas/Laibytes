@@ -22,6 +22,7 @@ program
   .description("Creates a new project")
   .action(async (projectName: string) => {
     try {
+      // Step 1: Prompt user to select project type
       const { projectType } = await inquirer.prompt<{ projectType: string }>({
         type: "list",
         name: "projectType",
@@ -37,6 +38,7 @@ program
         ],
       });
 
+      // Step 2: Create project directory
       const spinner = ora(
         chalk.yellow(`Creating project ${projectName}...`)
       ).start();
@@ -55,7 +57,7 @@ program
 
       spinner.succeed(chalk.green(`Project created at: ${projectPath}`));
 
-      // Step 4: Install dependencies (example for React)
+      // Step 4: Install dependencies (if applicable)
       if (projectType === "blog" || projectType === "ecommerce") {
         const installSpinner = ora(
           chalk.yellow("Installing dependencies...")
