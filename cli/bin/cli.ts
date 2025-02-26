@@ -63,7 +63,9 @@ program
       spinner.succeed(chalk.green(`Project created at: ${projectPath}`));
 
       // Step 4: Install dependencies (if applicable)
-      if (projectType === "dynamic" || projectType === "e-commerce") {
+      const packageJsonPath = path.join(projectPath, "package.json");
+
+      if (fs.existsSync(packageJsonPath)) {
         const installSpinner = ora(
           chalk.yellow("Installing dependencies...")
         ).start();
@@ -78,6 +80,10 @@ program
           installSpinner.fail(chalk.red("Error installing dependencies!"));
           console.error(error);
         }
+      } else {
+        console.log(
+          chalk.yellow("⚠️ No package.json found. Skipping npm install.")
+        );
       }
 
       // Step 5: Final message with next steps
