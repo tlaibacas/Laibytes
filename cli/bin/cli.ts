@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 program
-  .version("1.0.5")
+  .version("1.1.0")
   .description(
     chalk.blue("Laibytes CLI - Official tool for creating web projects")
   );
