@@ -37,7 +37,6 @@ program
         ],
       });
 
-      // Step 2: Directory creation
       const spinner = ora(
         chalk.yellow(`Creating project ${projectName}...`)
       ).start();
