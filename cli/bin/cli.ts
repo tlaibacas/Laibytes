@@ -28,9 +28,9 @@ program
         name: "projectType",
         message: "Select the project type:",
         choices: [
-          { name: "🏢 Institutional Site", value: "institucional" },
-          { name: "🔄 Dynamic Site", value: "dinamico" },
-          { name: "🛒 E-commerce", value: "loja-virtual" },
+          { name: "🏢 Institutional Site", value: "institutional" },
+          { name: "🔄 Dynamic Site", value: "dynamic" },
+          { name: "🛒 E-commerce", value: "e-commerce" },
           { name: "📄 One-Page Site", value: "one-page" },
           { name: "🌐 Portal", value: "portal" },
           { name: "🔥 Hotsite", value: "hotsite" },
@@ -53,12 +53,17 @@ program
 
       // Step 3: Copy template
       const templatePath = path.join(__dirname, "../templates", projectType);
-      fs.copySync(templatePath, projectPath);
 
+      if (!fs.existsSync(templatePath)) {
+        spinner.fail(chalk.red(`Template not found: ${templatePath}`));
+        return;
+      }
+
+      fs.copySync(templatePath, projectPath);
       spinner.succeed(chalk.green(`Project created at: ${projectPath}`));
 
       // Step 4: Install dependencies (if applicable)
-      if (projectType === "blog" || projectType === "ecommerce") {
+      if (projectType === "dynamic" || projectType === "e-commerce") {
         const installSpinner = ora(
           chalk.yellow("Installing dependencies...")
         ).start();
@@ -74,6 +79,15 @@ program
           console.error(error);
         }
       }
+
+      // Step 5: Final message with next steps
+      console.log(
+        chalk.blue(`\n✅ Project "${projectName}" created successfully!`)
+      );
+      console.log(chalk.green(`➡️ Next steps:`));
+      console.log(chalk.yellow(`  cd ${projectName}`));
+      console.log(chalk.yellow(`  npm run dev`));
+      console.log(chalk.blue(`\n🚀 Happy coding!`));
     } catch (error) {
       if (error instanceof Error) {
         console.error(chalk.red(`❌ Error: ${error.message}`));
