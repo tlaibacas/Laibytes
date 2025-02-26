@@ -20,10 +20,10 @@ program
 program
   .command("create <project-name>")
   .description("Creates a new project")
-  .action(async (projectName) => {
+  .action(async (projectName: string) => {
     try {
       // Step 1: Project type selection
-      const { projectType } = await inquirer.prompt({
+      const { projectType } = await inquirer.prompt<{ projectType: string }>({
         type: "list",
         name: "projectType",
         message: "Select the project type:",
