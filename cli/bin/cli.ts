@@ -22,7 +22,6 @@ program
   .description("Creates a new project")
   .action(async (projectName: string) => {
     try {
-      // Step 1: Project type selection
       const { projectType } = await inquirer.prompt<{ projectType: string }>({
         type: "list",
         name: "projectType",
