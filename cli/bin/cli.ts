@@ -7,21 +7,40 @@ import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
 import { fileURLToPath } from "url";
+import Player from "play-sound";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const player = Player();
 
 program
   .version("1.1.0")
   .description(
-    chalk.blue("Laibytes CLI - Helpfull tool for creating web projects")
+    chalk.blue("Laibytes CLI - Helpful tool for creating web projects")
   );
+
+// Function to play music
+const playThemeSong = () => {
+  const songPath = path.join(__dirname, "../assets/theme.mp3");
+  if (fs.existsSync(songPath)) {
+    player.play(songPath, (err: unknown) => {
+      if (err) {
+        console.error(chalk.red("Error playing theme song:", err));
+      }
+    });
+  } else {
+    console.error(chalk.red("Theme song not found at:", songPath));
+  }
+};
 
 program
   .command("create <project-name>")
   .description("Creates a new project")
   .action(async (projectName: string) => {
     try {
+      // Play music when the command starts
+      playThemeSong();
+
       // Step 1: Prompt user to select project type
       const { projectType } = await inquirer.prompt<{ projectType: string }>({
         type: "list",
