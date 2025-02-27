@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "laibytes": "ts-node ./bin/cli.ts"
+    "laibytes": "./dist/bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
