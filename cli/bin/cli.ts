@@ -20,16 +20,20 @@ program
   );
 
 // Function to play music
+
 const playThemeSong = () => {
-  const songPath = path.join(__dirname, "../assets/theme.mp3");
-  if (fs.existsSync(songPath)) {
-    player.play(songPath, (err: unknown) => {
+  const themeSongPath = path.join(__dirname, "../assets/theme.mp3");
+  console.log(chalk.blue("Attempting to play theme song from:", themeSongPath)); // Debug log
+  if (fs.existsSync(themeSongPath)) {
+    player.play(themeSongPath, (err: unknown) => {
       if (err) {
         console.error(chalk.red("Error playing theme song:", err));
+      } else {
+        console.log(chalk.green("Theme song played successfully!")); // Debug log
       }
     });
   } else {
-    console.error(chalk.red("Theme song not found at:", songPath));
+    console.error(chalk.red("Theme song not found at:", themeSongPath));
   }
 };
 
