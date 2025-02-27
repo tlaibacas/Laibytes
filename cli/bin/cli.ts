@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 program
   .version("1.1.0")
   .description(
-    chalk.blue("Laibytes CLI - Official tool for creating web projects")
+    chalk.blue("Laibytes CLI - Helpfull tool for creating web projects")
   );
 
 program
