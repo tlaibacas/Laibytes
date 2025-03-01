@@ -9,8 +9,8 @@
   "scripts": {
     "test": "echo \"No tests specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node dist/app.js",
-    "dev": "npx ts-node src/app.ts",
+    "start": "node dist/bin/cli.js",
+    "dev": "npx ts-node src/cli.ts",
     "postinstall": "npm run build"
   },
   "repository": {
