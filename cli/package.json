@@ -1,7 +1,7 @@
 {
   "name": "laibytes",
-  "version": "1.1.0",
-  "description": "",
+  "version": "1.1.1",
+  "description": "CLi tool to create websites with ease",
   "main": "index.js",
   "bin": {
     "laibytes": "./dist/bin/cli.js"
