@@ -7,7 +7,10 @@
     "laibytes": "./dist/bin/cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "node dist/app.js",
+    "dev": "npx ts-node src/app.ts"
   },
   "repository": {
     "type": "git",
