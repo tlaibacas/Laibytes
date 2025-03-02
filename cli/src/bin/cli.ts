@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { program } from "commander";
 import chalk from "chalk";
-import { createProject } from "../commands/create";
+import { createProject } from "../commands/create.js";
 
 program
   .version("1.1.1")

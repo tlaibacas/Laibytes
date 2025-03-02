@@ -5,7 +5,7 @@ import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
 import { fileURLToPath } from "url";
-import { playThemeSong } from "../utils/sound";
+import { playThemeSong } from "../utils/sound.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
