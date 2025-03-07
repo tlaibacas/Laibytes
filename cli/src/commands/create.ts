@@ -26,8 +26,14 @@ export const createProject = async (projectName: string) => {
         { name: "🌐 Portal", value: "portal" },
         { name: "🔥 Hotsite", value: "hotsite" },
         { name: "📱 Landing Page", value: "landing-page" },
+        { name: "🚪 exit", value: "exit" },
       ],
     });
+
+    if (projectType === "exit") {
+      console.log(chalk.blue("👋 Exiting CLI..."));
+      process.exit(0);
+    }
 
     const spinner = ora(
       chalk.yellow(`Creating project ${projectName}...`)
