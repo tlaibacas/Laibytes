@@ -12,27 +12,18 @@ const __dirname = path.dirname(__filename);
 
 type Template = {
   name: string;
-  version: number;
+  value: string;
+  version: string;
   description: string;
   recommendation: string;
 };
 
-type Choice = {
-  name: string;
-  value: string;
-};
-
 export const createProject = async (projectName: string) => {
   try {
-    const choices: Choice[] = Object.entries(templates).map(([key, value]) => {
-      const template = value as Template;
-      return {
-        name: `${template.name} (v${template.version})`,
-        value: key,
-      };
-    });
-
-    choices.push({ name: "🚪 Exit", value: "exit" });
+    const choices = templates.choices.map((template: Template) => ({
+      name: `${template.name} (v${template.version})`,
+      value: template.value,
+    }));
 
     const { projectType } = await inquirer.prompt<{ projectType: string }>({
       type: "list",
