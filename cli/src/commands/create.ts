@@ -5,26 +5,25 @@ import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
 import { fileURLToPath } from "url";
+import templates from "../../templates/template.json";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const createProject = async (projectName: string) => {
   try {
+    const choices = Object.entries(templates).map(([key, value]) => ({
+      name: `${value.name} (v${value.version})`,
+      value: key,
+    }));
+
+    choices.push({ name: "🚪 Exit", value: "exit" });
+
     const { projectType } = await inquirer.prompt<{ projectType: string }>({
       type: "list",
       name: "projectType",
       message: "Select the project type:",
-      choices: [
-        { name: "🏢 Institutional Site", value: "institutional" },
-        { name: "🔄 Dynamic Site", value: "dynamic" },
-        { name: "🛒 E-commerce", value: "e-commerce" },
-        { name: "📄 One-Page Site", value: "one-page" },
-        { name: "🌐 Portal", value: "portal" },
-        { name: "🔥 Hotsite", value: "hotsite" },
-        { name: "📱 Landing Page", value: "landing-page" },
-        { name: "🚪 Exit", value: "exit" },
-      ],
+      choices,
       loop: false,
     });
 
