@@ -13,7 +13,9 @@ const __dirname = path.dirname(__filename);
 export const createProject = async (projectName: string) => {
   try {
     const choices = Object.entries(templates).map(([key, value]) => ({
-      name: `${value.name} (v${value.version})`,
+      name: `${(value as { name: string; version: string }).name} (v${
+        (value as { name: string; version: string }).version
+      })`,
       value: key,
     }));
 
