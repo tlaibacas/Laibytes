@@ -1,0 +1,52 @@
+{
+  "choices": [
+    {
+      "name": "🏢 Institutional Site",
+      "value": "institutional",
+      "version": "1.0.0",
+      "description": "A site for institutions"
+    },
+    {
+      "name": "🔄 Dynamic Site",
+      "value": "dynamic",
+      "version": "1.0.0",
+      "description": "A site with dynamic content"
+    },
+    {
+      "name": "🛒 E-commerce",
+      "value": "e-commerce",
+      "version": "1.0.0",
+      "description": "An online store"
+    },
+    {
+      "name": "📄 One-Page Site",
+      "value": "one-page",
+      "version": "1.0.0",
+      "description": "A single page site"
+    },
+    {
+      "name": "🌐 Portal",
+      "value": "portal",
+      "version": "1.0.0",
+      "description": "A web portal"
+    },
+    {
+      "name": "🔥 Hotsite",
+      "value": "hotsite",
+      "version": "1.0.0",
+      "description": "A promotional site"
+    },
+    {
+      "name": "📱 Landing Page",
+      "value": "landing-page",
+      "version": "1.0.0",
+      "description": "A landing page"
+    },
+    {
+      "name": "🚪 Exit",
+      "value": "exit",
+      "version": "1.0.0",
+      "description": "Exit the site"
+    }
+  ]
+}
