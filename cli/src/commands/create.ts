@@ -5,19 +5,32 @@ import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
 import { fileURLToPath } from "url";
-import templates from "../../templates/template.json";
+import templates from "../../templates/templates.json";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+type Template = {
+  name: string;
+  version: number;
+  description: string;
+  recommendation: string;
+};
+
+type Choice = {
+  name: string;
+  value: string;
+};
+
 export const createProject = async (projectName: string) => {
   try {
-    const choices = Object.entries(templates).map(([key, value]) => ({
-      name: `${(value as { name: string; version: string }).name} (v${
-        (value as { name: string; version: string }).version
-      })`,
-      value: key,
-    }));
+    const choices: Choice[] = Object.entries(templates).map(([key, value]) => {
+      const template = value as Template;
+      return {
+        name: `${template.name} (v${template.version})`,
+        value: key,
+      };
+    });
 
     choices.push({ name: "🚪 Exit", value: "exit" });
 
