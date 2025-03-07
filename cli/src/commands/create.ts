@@ -84,10 +84,6 @@ export const createProject = async (projectName: string) => {
     console.log(chalk.yellow(`  npm run dev`));
     console.log(chalk.blue(`\n🚀 Happy coding!`));
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(chalk.red(`❌ Error: ${error.message}`));
-    } else {
-      console.error(chalk.red(`❌ Error: ${String(error)}`));
-    }
+    console.error(chalk.red("Error creating project:", error));
   }
 };
