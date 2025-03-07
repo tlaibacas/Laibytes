@@ -25,7 +25,7 @@ export const createProject = async (projectName: string) => {
         { name: "📱 Landing Page", value: "landing-page" },
         { name: "🚪 Exit", value: "exit" },
       ],
-      loop: false, // Impede a navegação circular
+      loop: false,
     });
 
     if (projectType === "exit") {
