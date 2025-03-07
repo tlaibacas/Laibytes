@@ -1,6 +1,6 @@
 {
   "name": "laibytes",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "CLi tool to create websites with ease",
   "main": "index.js",
   "bin": {
