@@ -4,56 +4,56 @@
       "name": "🏢 Institutional Site",
       "value": "institutional",
       "version": "1.0.0",
-      "description": "A site for institutions",
+      "description": "A site for institutions (backend included)",
       "recommendation": "Recommended for businesses and organizations"
     },
     {
       "name": "🔄 Dynamic Site",
       "value": "dynamic",
       "version": "1.0.0",
-      "description": "A site with dynamic content",
+      "description": "A site with dynamic content (backend included)",
       "recommendation": "Recommended for blogs and news sites"
     },
     {
       "name": "🛒 E-commerce",
       "value": "e-commerce",
       "version": "1.0.0",
-      "description": "An online store",
+      "description": "An online store (backend included)",
       "recommendation": "Recommended for online retail businesses"
     },
     {
       "name": "📄 One-Page Site",
       "value": "one-page",
       "version": "1.0.0",
-      "description": "A single page site",
+      "description": "A single page site (backend not needed)",
       "recommendation": "Recommended for portfolios and small businesses"
     },
     {
       "name": "🌐 Portal",
       "value": "portal",
       "version": "1.0.0",
-      "description": "A web portal",
+      "description": "A web portal (backend included)",
       "recommendation": "Recommended for large content sites"
     },
     {
       "name": "🔥 Hotsite",
       "value": "hotsite",
       "version": "1.0.0",
-      "description": "A promotional site",
+      "description": "A promotional site (backend not needed)",
       "recommendation": "Recommended for marketing campaigns"
     },
     {
       "name": "📱 Landing Page",
       "value": "landing-page",
       "version": "1.0.0",
-      "description": "A landing page",
+      "description": "A landing page (backend not needed)",
       "recommendation": "Recommended for product launches and promotions"
     },
     {
       "name": "🚪 Exit",
       "value": "exit",
       "version": "1.0.0",
-      "description": "Exit the site",
+      "description": "Exit the site (backend not needed)",
       "recommendation": "Not applicable"
     }
   ]
