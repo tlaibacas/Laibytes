@@ -5,7 +5,7 @@ import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
 import { fileURLToPath } from "url";
-import templates from "../../templates/templates.json";
+import templates from "../../templates/templates.json" assert { type: "json" };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
