@@ -5,7 +5,6 @@ import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
 import { fileURLToPath } from "url";
-import templates from "../../templates/templates.json" assert { type: "json" };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,6 +19,12 @@ type Template = {
 
 export const createProject = async (projectName: string) => {
   try {
+    const templatesPath = path.join(
+      __dirname,
+      "../../templates/templates.json"
+    );
+    const templates = await fs.readJson(templatesPath);
+
     const choices = templates.choices.map((template: Template) => ({
       name: `${template.name} (v${template.version})`,
       value: template.value,
