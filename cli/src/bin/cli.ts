@@ -11,14 +11,24 @@ import fs from "fs-extra";
 import path from "path";
 import ora from "ora";
 import { execa } from "execa";
-import templates from "../../templates/templates.json" assert { type: "json" };
+import { readFileSync } from "fs";
+const templates = JSON.parse(
+  readFileSync(
+    new URL("../../templates/templates.json", import.meta.url),
+    "utf-8"
+  )
+);
 
 const getProjectRoot = async () => {
+  console.log("Getting project root...");
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
+  console.log(`__filename: ${__filename}`);
+  console.log(`__dirname: ${__dirname}`);
 
   const packagePath = await findUp("package.json", { cwd: __dirname });
   if (!packagePath) throw new Error("package.json não encontrado!");
+  console.log(`packagePath: ${packagePath}`);
 
   return {
     rootDir: dirname(packagePath),
@@ -51,10 +61,14 @@ const createNewProject = async (
   options: CreateProjectOptions
 ) => {
   try {
+    console.log(`Creating new project: ${projectName}`);
+    console.log(`Options: ${JSON.stringify(options)}`);
+
     const choices: Choice[] = templates.choices.map((template: Template) => ({
       name: `${template.name} (v${template.version})`,
       value: template.value,
     }));
+    console.log(`Choices: ${JSON.stringify(choices)}`);
 
     const { projectType } = await inquirer.prompt<{ projectType: string }>({
       type: "list",
@@ -63,6 +77,7 @@ const createNewProject = async (
       choices,
       loop: false,
     });
+    console.log(`Selected project type: ${projectType}`);
 
     if (projectType === "exit") {
       console.log(chalk.blue("👋 Exiting CLI..."));
@@ -73,6 +88,7 @@ const createNewProject = async (
       chalk.yellow(`Creating project ${projectName}...`)
     ).start();
     const projectPath = path.join(process.cwd(), projectName);
+    console.log(`Project path: ${projectPath}`);
 
     if (fs.existsSync(projectPath)) {
       spinner.fail(chalk.red(`Directory ${projectName} already exists!`));
@@ -80,6 +96,7 @@ const createNewProject = async (
     }
 
     fs.mkdirSync(projectPath);
+    console.log(`Directory ${projectName} created successfully.`);
     // ...existing code...
   } catch (error) {
     console.error(chalk.red("Error creating project:", error));
@@ -88,8 +105,13 @@ const createNewProject = async (
 
 (async () => {
   try {
+    console.log("Starting CLI...");
     const { rootDir, packagePath } = await getProjectRoot();
+    console.log(`rootDir: ${rootDir}`);
+    console.log(`packagePath: ${packagePath}`);
+
     const pkg = JSON.parse(await readFile(packagePath, "utf-8"));
+    console.log(`Package info: ${JSON.stringify(pkg)}`);
 
     program
       .version(pkg.version)
@@ -105,6 +127,8 @@ const createNewProject = async (
       .action(async (projectName, options) => {
         console.log(chalk.yellow.bold(`\n⚡ ${pkg.name} v${pkg.version}`));
         console.log(chalk.blue(pkg.description + "\n"));
+        console.log(`Project name: ${projectName}`);
+        console.log(`Options: ${JSON.stringify(options)}`);
 
         await createNewProject(projectName, {
           template: options.template,
@@ -113,6 +137,7 @@ const createNewProject = async (
       });
 
     program.parse(process.argv);
+    console.log("CLI parsed successfully.");
   } catch (error) {
     console.error(chalk.red("⛔ Erro crítico:"));
     if (error instanceof Error) {
