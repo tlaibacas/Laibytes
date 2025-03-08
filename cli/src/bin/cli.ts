@@ -25,7 +25,7 @@ const getProjectRoot = async () => {
   const __dirname = dirname(__filename);
 
   const packagePath = await findUp("package.json", { cwd: __dirname });
-  if (!packagePath) throw new Error("package.json não encontrado!");
+  if (!packagePath) throw new Error("package.json not found!");
 
   return {
     rootDir: dirname(packagePath),
@@ -106,8 +106,8 @@ const createNewProject = async (
 
     program
       .command("create <project-name>")
-      .description("Cria um novo projeto")
-      .option("-t, --template <name>", "Especifica um template")
+      .description("Creates a new project")
+      .option("-t, --template <name>", "Specifies a template")
       .action(async (projectName, options) => {
         await createNewProject(projectName, {
           template: options.template,
@@ -117,7 +117,7 @@ const createNewProject = async (
 
     program.parse(process.argv);
   } catch (error) {
-    console.error(chalk.red("⛔ Erro crítico:"));
+    console.error(chalk.red("⛔ Critical error:"));
     if (error instanceof Error) {
       console.error(chalk.yellow(error.message));
     } else {
