@@ -6,11 +6,6 @@ import { readFile } from "fs/promises";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import { findUp } from "find-up";
-import inquirer from "inquirer";
-import fs from "fs-extra";
-import path from "path";
-import ora from "ora";
-import { execa } from "execa";
 import { readFileSync } from "fs";
 
 const templates = JSON.parse(
