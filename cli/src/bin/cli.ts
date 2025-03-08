@@ -97,6 +97,17 @@ const createNewProject = async (
 
     const pkg = JSON.parse(await readFile(packagePath, "utf-8"));
 
+    const centerText = (text: string) => {
+      const terminalWidth = process.stdout.columns || 80;
+      const textLength = text.length;
+      const padding = Math.max(0, Math.floor((terminalWidth - textLength) / 2));
+      return " ".repeat(padding) + text;
+    };
+
+    console.log(chalk.bold.yellow(centerText(`${pkg.name}`)));
+    console.log(chalk.green(centerText(`Version: ${pkg.version}`)));
+    console.log(chalk.yellow.italic(centerText(`${pkg.description}`)));
+
     program
       .version(pkg.version)
       .name(pkg.name)
