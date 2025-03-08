@@ -35,62 +35,6 @@ const getProjectRoot = async () => {
   };
 };
 
-type Template = {
-  name: string;
-  value: string;
-  version: string;
-  description: string;
-  recommendation: string;
-};
-
-type Choice = {
-  name: string;
-  value: string;
-};
-
-type CreateProjectOptions = {
-  template?: string;
-  rootDir: string;
-};
-
-const createNewProject = async (
-  projectName: string,
-  options: CreateProjectOptions
-) => {
-  try {
-    const choices: Choice[] = templates.choices.map((template: Template) => ({
-      name: `${template.name} (v${template.version})`,
-      value: template.value,
-    }));
-
-    const { projectType } = await inquirer.prompt<{ projectType: string }>({
-      type: "list",
-      name: "projectType",
-      message: "Select the project type:",
-      choices,
-      loop: false,
-    });
-
-    if (projectType === "exit") {
-      return;
-    }
-
-    const spinner = ora(
-      chalk.yellow(`Creating project ${projectName}...`)
-    ).start();
-    const projectPath = path.join(process.cwd(), projectName);
-
-    if (fs.existsSync(projectPath)) {
-      spinner.fail(chalk.red(`Directory ${projectName} already exists!`));
-      return;
-    }
-
-    fs.mkdirSync(projectPath);
-  } catch (error) {
-    console.error(chalk.red("Error creating project:", error));
-  }
-};
-
 (async () => {
   try {
     const { rootDir, packagePath } = await getProjectRoot();
@@ -120,7 +64,7 @@ const createNewProject = async (
       .description("Creates a new project")
       .option("-t, --template <name>", "Specifies a template")
       .action(async (projectName, options) => {
-        await createNewProject(projectName, {
+        await createProject(projectName, {
           template: options.template,
           rootDir,
         });

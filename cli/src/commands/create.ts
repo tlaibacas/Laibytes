@@ -17,7 +17,20 @@ type Template = {
   recommendation: string;
 };
 
-export const createProject = async (projectName: string) => {
+type Choice = {
+  name: string;
+  value: string;
+};
+
+type CreateProjectOptions = {
+  template?: string;
+  rootDir: string;
+};
+
+export const createProject = async (
+  projectName: string,
+  options: CreateProjectOptions
+) => {
   try {
     const templatesPath = path.join(
       __dirname,
@@ -25,7 +38,7 @@ export const createProject = async (projectName: string) => {
     );
     const templates = await fs.readJson(templatesPath);
 
-    const choices = templates.choices.map((template: Template) => ({
+    const choices: Choice[] = templates.choices.map((template: Template) => ({
       name: `${template.name} (v${template.version})`,
       value: template.value,
     }));
@@ -33,7 +46,7 @@ export const createProject = async (projectName: string) => {
     const { projectType } = await inquirer.prompt<{ projectType: string }>({
       type: "list",
       name: "projectType",
-      message: "Select the project type:",
+      message: "Select the project types:",
       choices,
       loop: false,
     });
