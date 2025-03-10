@@ -32,10 +32,10 @@
     "execa": "^9.5.2",
     "find-up": "^7.0.0",
     "fs-extra": "^11.3.0",
-    "inquirer": "^12.4.2",
+    "inquirer": "^12.4.3",
     "ora": "^8.2.0",
     "play-sound": "^1.1.6",
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.9.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
