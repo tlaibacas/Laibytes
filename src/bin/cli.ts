@@ -6,14 +6,6 @@ import { readFile } from "fs/promises";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import { findUp } from "find-up";
-import { readFileSync } from "fs";
-
-const templates = JSON.parse(
-  readFileSync(
-    new URL("../../templates/templates.json", import.meta.url),
-    "utf-8"
-  )
-);
 
 const getProjectRoot = async () => {
   const __filename = fileURLToPath(import.meta.url);
@@ -25,15 +17,12 @@ const getProjectRoot = async () => {
   return {
     rootDir: dirname(packagePath),
     packagePath,
-    __dirname,
-    __filename,
   };
 };
 
 (async () => {
   try {
     const { rootDir, packagePath } = await getProjectRoot();
-
     const pkg = JSON.parse(await readFile(packagePath, "utf-8"));
 
     const centerText = (text: string) => {
