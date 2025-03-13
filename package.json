@@ -36,7 +36,8 @@
     "inquirer": "^12.4.3",
     "ora": "^8.2.0",
     "play-sound": "^1.1.6",
-    "shelljs": "^0.9.1"
+    "shelljs": "^0.9.1",
+    "string-width": "^7.2.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
