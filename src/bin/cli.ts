@@ -24,12 +24,12 @@ const getProjectRoot = async () => {
   try {
     const { rootDir, packagePath } = await getProjectRoot();
     const pkg = JSON.parse(await readFile(packagePath, "utf-8"));
-
+    console.log();
     console.log(
-      chalk.bold.cyan(`🚀 ${pkg.name} `) + chalk.bold.magenta(`v${pkg.version}`)
+      chalk.bold.cyan(`${pkg.name} `) + chalk.bold.magenta(`v${pkg.version}`)
     );
-    console.log(chalk.italic.green(`📝 ${pkg.description}`));
-    console.log(chalk.italic.magenta(`👤 Author: ${pkg.author}`));
+    console.log(chalk.italic.green(`${pkg.description}`));
+    console.log(chalk.italic.magenta(`Author: ${pkg.author}`));
     console.log();
 
     program

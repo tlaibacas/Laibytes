@@ -1,9 +1,16 @@
+#!/usr/bin/env node
 import inquirer from "inquirer";
 import fs from "fs-extra";
 import path from "path";
 import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
+
+declare module "inquirer" {
+  interface Theme {
+    prefix: string;
+  }
+}
 
 type Template = {
   name: string;
@@ -59,15 +66,18 @@ export const createProject = async (
       message: "Select a project template:",
       choices,
       loop: false,
+      theme: {
+        prefix: "",
+      },
     });
 
     if (projectType === "exit") {
-      console.log(chalk.blue("👋 Exiting CLI..."));
+      console.log(chalk.blue("\n👋 Exiting CLI..."));
       return;
     }
 
     const spinner = ora(
-      chalk.yellow(`Creating project ${projectName}...`)
+      chalk.yellow(`\nCreating project ${projectName}...`)
     ).start();
     const projectPath = path.join(process.cwd(), projectName);
 
@@ -90,7 +100,7 @@ export const createProject = async (
     const packageJsonPath = path.join(projectPath, "package.json");
     if (fs.existsSync(packageJsonPath)) {
       const installSpinner = ora(
-        chalk.yellow("Installing dependencies...")
+        chalk.yellow("\nInstalling dependencies...")
       ).start();
       try {
         await execa("npm", ["install"], { cwd: projectPath });
@@ -113,9 +123,10 @@ export const createProject = async (
   } catch (error) {
     console.error(
       chalk.red(
-        "Error creating project:",
+        "\nError creating project:",
         error instanceof Error ? error.message : "Unknown error"
       )
     );
+    process.exit(1);
   }
 };
