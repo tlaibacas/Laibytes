@@ -5,6 +5,7 @@ import path from "path";
 import chalk from "chalk";
 import ora from "ora";
 import { execa } from "execa";
+import fetch from "node-fetch";
 
 declare module "inquirer" {
   interface Theme {
@@ -13,11 +14,8 @@ declare module "inquirer" {
 }
 
 type Template = {
-  name: string;
-  value: string;
-  version: string;
-  description: string;
-  recommendation?: string;
+  type: string;
+  refs?: string[];
 };
 
 type CreateProjectOptions = {
@@ -26,17 +24,21 @@ type CreateProjectOptions = {
 };
 
 const loadTemplates = async (rootDir: string): Promise<Template[]> => {
-  const templatesPath = path.join(rootDir, "templates/templates.json");
+  const templatesUrl =
+    "https://raw.githubusercontent.com/tlaibacas/templates/master/template.json";
 
   try {
-    const data = await fs.readFile(templatesPath, "utf-8");
-    const templates = JSON.parse(data) as { choices: Template[] };
+    const response = await fetch(templatesUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch templates: ${response.statusText}`);
+    }
 
-    if (!templates.choices || !Array.isArray(templates.choices)) {
+    const data: any = await response.json();
+    if (!data.choices || !Array.isArray(data.choices)) {
       throw new Error("Invalid format: templates must have a 'choices' array.");
     }
 
-    return templates.choices;
+    return data.choices as Template[];
   } catch (error) {
     throw new Error(
       `Failed to load templates: ${
@@ -52,28 +54,42 @@ export const createProject = async (
 ) => {
   try {
     const templates = await loadTemplates(options.rootDir);
-    const choices = templates.map((template) => ({
-      name:
-        template.value === "exit"
-          ? template.name
-          : `${template.name} (${chalk.green(`v${template.version}`)})`,
-      value: template.value,
-    }));
 
-    const { projectType } = await inquirer.prompt<{ projectType: string }>({
+    const { selectedType } = await inquirer.prompt<{ selectedType: Template }>({
       type: "list",
-      name: "projectType",
-      message: "Select a project template:",
-      choices,
+      name: "selectedType",
+      message: "Select a project type:",
+      choices: templates.map((template) => ({
+        name: template.type,
+        value: template,
+      })),
       loop: false,
       theme: {
         prefix: "",
       },
     });
 
-    if (projectType === "exit") {
+    if (selectedType.type === "🚪 Exit") {
       console.log(chalk.blue("\n👋 Exiting CLI..."));
       return;
+    }
+
+    let templateRef = "";
+    if (selectedType.refs && selectedType.refs.length > 0) {
+      const { selectedRef } = await inquirer.prompt<{ selectedRef: string }>({
+        type: "list",
+        name: "selectedRef",
+        message: "Select a version:",
+        choices: selectedType.refs.map((ref) => ({
+          name: ref,
+          value: ref,
+        })),
+        loop: false,
+        theme: {
+          prefix: "",
+        },
+      });
+      templateRef = selectedRef;
     }
 
     const spinner = ora(
@@ -87,10 +103,14 @@ export const createProject = async (
     }
 
     fs.mkdirSync(projectPath);
-    const templatePath = path.join(options.rootDir, "templates", projectType);
+    const templatePath = path.join(
+      options.rootDir,
+      "templates",
+      templateRef || selectedType.type
+    );
 
     if (!fs.existsSync(templatePath)) {
-      spinner.fail(chalk.red(`Template not found: ${projectType}`));
+      spinner.fail(chalk.red(`Template not found: ${templatePath}`));
       return;
     }
 
