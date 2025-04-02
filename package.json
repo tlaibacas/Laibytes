@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.13.17",
     "@types/play-sound": "^1.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
